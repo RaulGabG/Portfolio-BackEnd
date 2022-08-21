@@ -14,16 +14,16 @@ CREATE TABLE experiencia_laboral (id INT NOT NULL AUTO_INCREMENT, position VARCH
 
 INSERT INTO experiencia_laboral (position, company, img, modo, inicio, fin, timeElapsed, ubicacion, id_persona) VALUES ('Supervisor', 'Teleperformance Argentina', NULL, 'Full-Time', 'oct 2009', 'mar 2018', '8 ños y 5 meses', 'Tucumán, Argentina', 1);
 
-CREATE TABLE educacion (id INT NOT NULL AUTO_INCREMENT, school VARCHAR(45) NULL, title VARCHAR(45) NULL, img VARCHAR(45) NULL, carrer VARCHAR(45) NULL, score FLOAT NULL, inicio VARCHAR(45) NULL, fin VARCHAR(45) NULL, PRIMARY KEY (id));
+CREATE TABLE educacion (id INT NOT NULL AUTO_INCREMENT, school VARCHAR(45) NULL, title VARCHAR(45) NULL, img VARCHAR(45) NULL, carrer VARCHAR(45) NULL, score FLOAT NULL, inicio VARCHAR(45) NULL, fin VARCHAR(45) NULL, id_persona INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (id_persona) REFERENCES portfolio_raul_guanca.persona (id));
 
-INSERT INTO educacion (school, title, img, carrer, score, inicio, fin) VALUES ('Argentina Programa', 'Full Stack Web Developer', NULL, 'Programación', NULL, 'nov 2021', 'ago 2022'), ('Colegio Nacional Bartolomé Mitre', 'Perito Especializado en Recursos Naturales', NULL, 'Humanidades', 7.9, 'mar 2005', 'jul 2006');
+INSERT INTO educacion (school, title, img, carrer, score, inicio, fin, id_persona) VALUES ('Argentina Programa', 'Full Stack Web Developer', NULL, 'Programación', NULL, 'nov 2021', 'ago 2022', 1), ('Colegio Nacional Bartolomé Mitre', 'Perito Especializado en Recursos Naturales', NULL, 'Humanidades', 7.9, 'mar 2005', 'jul 2006', 1);
 
-CREATE TABLE tecnologias (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(20) NULL, progress FLOAT NULL, PRIMARY KEY (id));
+CREATE TABLE proyectos (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(45) NULL, client VARCHAR(45) NULL, img VARCHAR(45) NULL, description VARCHAR(300) NULL, url VARCHAR(50) NULL, id_persona INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (id_persona) REFERENCES portfolio_raul_guanca.persona (id));
 
-INSERT INTO tecnologias (name, progress) VALUES ('HTML', 75), ('CSS', 50), ('JS', 25), ('SQL', 50), ('PHP', 15);
+INSERT INTO proyectos (name, client, img, description, url, id_persona) VALUES('Base de datos local', 'Cuartel de Bomberos Voluntarios', NULL, 'Realicé una base de datos local con una página para la gestión de la misma via formularios. La misma se desarrolló con Xampp, MySQL, HTML, CSS Y PHP', NULL, 1);
 
-CREATE TABLE proyectos (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(45) NULL, client VARCHAR(45) NULL, img VARCHAR(45) NULL, description VARCHAR(300) NULL, url VARCHAR(50) NULL, PRIMARY KEY (id));
+CREATE TABLE tecnologias (id INT NOT NULL AUTO_INCREMENT, name VARCHAR(20) NULL, progress FLOAT NULL, id_proyectos INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (id_proyectos) REFERENCES portfolio_raul_guanca.proyectos (id));
 
-INSERT INTO proyectos (name, client, img, description, url) VALUES('Base de datos local', 'Cuartel de Bomberos Voluntarios', NULL, 'Realicé una base de datos local con una página para la gestión de la misma via formularios. La misma se desarrolló con Xampp, MySQL, HTML, CSS Y PHP', NULL);
+INSERT INTO tecnologias (name, progress, id_proyectos) VALUES ('HTML', 75, 1), ('CSS', 50, 1), ('MySQL', 90, 1), ('PHP', 80, 1);
 
-CREATE TABLE usuarios (id INT NOT NULL AUTO_INCREMENT, usuario VARCHAR(20) NOT NULL, contrasenha VARCHAR(250) NOT NULL, PRIMARY KEY (id));
+CREATE TABLE usuarios (id INT NOT NULL AUTO_INCREMENT, usuario VARCHAR(20) NOT NULL, contrasenha VARCHAR(250) NOT NULL, id_persona INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (id_persona) REFERENCES portfolio_raul_guanca.persona (id));
